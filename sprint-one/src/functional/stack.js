@@ -1,14 +1,14 @@
 var Stack = function(){
-  var count = 0; //want to keep track of the size
-
   var someInstance = {};
+
+   var count = 0;
 
   // Use an object with numeric keys to store values
   var storage = {};
 
   // Implement the methods below
   someInstance.push = function(value){ //push, adding something
-                              //put this value in someInstance object
+                              //put value in someInstance object
                               //create a key and assignt 
     someInstance[count] = value; //keeping track of what we are putting into our stack
     count++; 
