@@ -21,8 +21,9 @@ Queue.prototype.dequeue = function() {
   var temp = this.storage[0];
 
   for (var key in this.storage) {
+
     this.storage[key  - 1] = this.storage[key];
-  
+
     delete this.storage[key];
 
   }
