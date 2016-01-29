@@ -3,86 +3,75 @@ var LinkedList = function(){
   list.head = null;
   list.tail = null;
   list.count = 0;
+
   list.addToTail = function(value){
-    // Give each item in the list a numerical key
-    //tail will get the item at count - 1
-    //count will be the length of our list
+
+    // add one to count
     this.count++;
 
-    //create a new node at the last value in list (count - 1)
+    //create a new instance of Node and assign it to the tail (last item in list)
     list[this.count - 1] = new Node(value);
 
-    //ensure list is not empty so we can set up pointers
-    if (count >= 1) {
+    //assign tail to the last value in list or null if list is empty
+    this.tail = list[this.count - 1] || null;
 
-      //if count is one, next should be null
+    //assign head to the first value in list or null if list is empty
+    this.head = list[0] || null;
 
-      //if count is two, value at 0.next points to value at 1, value at 1.next points to null
-
-      //if count is three, value at 0,next points to value at 1, value at 1.next points to value at 2, value at 2.next points to value at 3
-
-      //etc
-
+    //tail.next should point to null
+    //if count is above 1, then .next should point to the value before it
+    if (this.count > 1) {
+      list[this.count - 2].next = list[this.count - 1];
     }
-
-    // list[this.count - 2].next = list[this.count - 1];
-
-    //tail gets the value at the end of our list (count - 1)
-    this.tail = list[this.count - 1];
-
-    //assign head the first value in list (list at 0)
-    list.head = list[0];
-    
   };
 
   list.removeHead = function(){
 
-    // console.log('------------------');
-    //assign the head (list at 0) to a temp variable
-    var temp = list.head.value;
-    
-    //iterate through the list
-    
-    for(var key in list){
+    //assign value of head to temp variable
+    var temp = list[0];
 
-      //check if the key is a number, and greater than 0
-      if(!isNaN(parseInt(key)) && key >= 1){
+    //iterate through list
+    for (var key in list) {
 
-        
-        //shift values down one key (key - 1)
-        list[key-1] = list[key];
-       
+      //ensure that the key is a number
+      if (!isNaN(parseInt(key, 10)) && key >= 1) {
+
+        //shift the values to the key with a lower number
+        list[key - 1] = list[key];
 
         //delete to prevent duplicates
-  
         delete list[key];
       }
 
-      delete list.head;
-
-      list.head = list[0];
     }
-  
-    //return the old head value
-    return temp;
-    
+    //reassign null to list.head
+    list.head = list[0];
 
+    //return the old head value
+    return temp.value;
   };
 
 
-  list.contains = function(target){
- 
+  list.contains = function(target) {
+
+    //result variable to hold return
+    var result = true;
+
+    //iterate through the list
     for (var key in list) {
    
-      if (list[key].value === target) {
+      //check the values in list against target
+      if (target === list[key].value) {
         
-        return true;
+        //if there is a match return result
+        return result;
       }
-console.log('list', list);
     }
+    //otherwise return false
     return false;
   };
-  return list;
+
+return list;
 };
 
 var Node = function(value){
