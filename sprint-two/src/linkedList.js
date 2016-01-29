@@ -25,7 +25,7 @@ var LinkedList = function(){
 
     }
 
-    list[this.count - 2].next = list[this.count - 1];
+    // list[this.count - 2].next = list[this.count - 1];
 
     //tail gets the value at the end of our list (count - 1)
     this.tail = list[this.count - 1];
@@ -60,7 +60,7 @@ var LinkedList = function(){
 
       delete list.head;
 
-      list.head = list[0];      
+      list.head = list[0];
     }
   
     //return the old head value
