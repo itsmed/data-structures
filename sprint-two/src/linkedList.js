@@ -2,55 +2,86 @@ var LinkedList = function(){
   var list = {};
   list.head = null;
   list.tail = null;
-
+  list.count = 0;
   list.addToTail = function(value){
-    this.tail = new Node(value);
-    // console.log('tail', this.tail.value);
-    // if no values in list yet
-    if(list.head === null){
-      // this.head.value = value;
-      // this.tail.value = value;
-      // this.head.next = value;
-      // alert('yatta');
-      this.head = this.tail;
+    // Give each item in the list a numerical key
+    //tail will get the item at count - 1
+    //count will be the length of our list
+    this.count++;
+
+    //create a new node at the last value in list (count - 1)
+    list[this.count - 1] = new Node(value);
+
+    //ensure list is not empty so we can set up pointers
+    if (count >= 1) {
+
+      //if count is one, next should be null
+
+      //if count is two, value at 0.next points to value at 1, value at 1.next points to null
+
+      //if count is three, value at 0,next points to value at 1, value at 1.next points to value at 2, value at 2.next points to value at 3
+
+      //etc
+
     }
-    //if 1+ value already exists in the list
-    else {
 
-      this.head.value = this.tail.value;
-      this.tail.value = value;
-      this.head.next = this.tail.value;
+    list[this.count - 2].next = list[this.count - 1];
 
-    }
+    //tail gets the value at the end of our list (count - 1)
+    this.tail = list[this.count - 1];
 
-
+    //assign head the first value in list (list at 0)
+    list.head = list[0];
+    
   };
 
   list.removeHead = function(){
-    console.log('head.val at begging', this.head);
-    var temp = this.head.value;
-    delete this.head;
-    console.log('head.val after deleted', this.head);
-    this.head = this.tail;
-    // console.log('this remove head', this);
-    console.log('this.head after assigning tail to head', this.head);
-    console.log('this.tail', this.tail);
-     
 
-    // return this.value;
+    // console.log('------------------');
+    //assign the head (list at 0) to a temp variable
+    var temp = list.head.value;
+    
+    //iterate through the list
+    
+    for(var key in list){
+
+      //check if the key is a number, and greater than 0
+      if(!isNaN(parseInt(key)) && key >= 1){
+
+        
+        //shift values down one key (key - 1)
+        list[key-1] = list[key];
+       
+
+        //delete to prevent duplicates
+  
+        delete list[key];
+      }
+
+      delete list.head;
+
+      list.head = list[0];      
+    }
+  
+    //return the old head value
     return temp;
+    
 
   };
+
 
   list.contains = function(target){
-    // for (var key in list) {
-      if (target in list) {
+ 
+    for (var key in list) {
+   
+      if (list[key].value === target) {
+        
         return true;
       }
-    // }
+console.log('list', list);
+    }
     return false;
   };
-
   return list;
 };
 
