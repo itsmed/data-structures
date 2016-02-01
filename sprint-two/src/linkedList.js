@@ -2,73 +2,86 @@ var LinkedList = function(){
   var list = {};
   list.head = null;
   list.tail = null;
-  list.count = 0;
+  list.next = null;
 
   list.addToTail = function(value){
 
-    // add one to count
-    this.count++;
+    // create a new node instance
+    var node = new Node(value);
+    
+    //if there is no head, assign it to node
+    if (list.head === null) {
 
-    //create a new instance of Node and assign it to the tail (last item in list)
-    list[this.count - 1] = new Node(value);
+      this.head = node;
 
-    //assign tail to the last value in list or null if list is empty
-    this.tail = list[this.count - 1] || null;
+      this.tail = node;
 
-    //assign head to the first value in list or null if list is empty
-    this.head = list[0] || null;
+      this.head.next = node;
 
-    //tail.next should point to null
-    //if count is above 1, then .next should point to the value before it
-    if (this.count > 1) {
-      list[this.count - 2].next = list[this.count - 1];
     }
+
+    this.tail.next = node;
+
+    this.tail = node;
+
+    this.tail.next = null;
+  
   };
 
   list.removeHead = function(){
 
-    //assign value of head to temp variable
-    var temp = list[0];
+    if (this.head) {
+      
+      var temp = this.head.value;
 
-    //iterate through list
-    for (var key in list) {
+      this.head = this.head.next;
 
-      //ensure that the key is a number
-      if (!isNaN(parseInt(key, 10)) && key >= 1) {
 
-        //shift the values to the key with a lower number
-        list[key - 1] = list[key];
-
-        //delete to prevent duplicates
-        delete list[key];
-      }
+    return temp;
 
     }
-    //reassign null to list.head
-    list.head = list[0];
 
-    //return the old head value
-    return temp.value;
+    return 'Empty list';
+
   };
 
 
   list.contains = function(target) {
 
-    //result variable to hold return
-    var result = true;
+    var that = this;
 
-    //iterate through the list
-    for (var key in list) {
-   
-      //check the values in list against target
-      if (target === list[key].value) {
-        
-        //if there is a match return result
-        return result;
-      }
+    if (target === undefined) {
+
+      return undefined;
     }
-    //otherwise return false
-    return false;
+    
+    function search(current) {
+
+      current = current || that;
+    
+var found;
+      if (current.value === target) {
+
+        found = true;
+console.log('if found', found);
+        return found;
+      }
+
+      if ( (current.value !== target) && (current.next === null) ) {
+
+        found = false;
+console.log('if tail', found);
+        return found;
+      }
+      console.log('found before recursion', found);
+
+      found = search(current.next);
+
+      return found;
+    }
+
+    return search(this.head);
+    
   };
 
 return list;
