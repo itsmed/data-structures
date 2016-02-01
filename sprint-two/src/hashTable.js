@@ -30,7 +30,7 @@ HashTable.prototype.insert = function(k, v){
 HashTable.prototype.retrieve = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
 
-
+  var storage = this._storage;
 
   for (var j = 0; j < storage.length; j++) {
 
@@ -45,6 +45,16 @@ HashTable.prototype.retrieve = function(k){
 };
 
 HashTable.prototype.remove = function(k){
+
+  var storage = this._storage;
+
+  for (var i = 0; i < storage.length; i++) {
+
+    if (storage[i][0]) {
+
+      return storage[i][1];
+    }
+  }
 
 };
 
