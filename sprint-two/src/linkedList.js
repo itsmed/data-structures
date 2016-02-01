@@ -63,17 +63,16 @@ var found;
       if (current.value === target) {
 
         found = true;
-console.log('if found', found);
+
         return found;
       }
 
       if ( (current.value !== target) && (current.next === null) ) {
 
         found = false;
-console.log('if tail', found);
+
         return found;
       }
-      console.log('found before recursion', found);
 
       found = search(current.next);
 
